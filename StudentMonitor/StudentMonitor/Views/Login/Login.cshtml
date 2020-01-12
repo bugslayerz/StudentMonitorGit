@@ -1,0 +1,58 @@
+﻿
+@model StudentMonitor.UserProfile
+
+@{
+    ViewBag.Title = "Login";
+}
+
+    <body>
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+        {
+
+            <fieldset>
+                <br/><br/>
+                <font size="5" >
+                    <div class="page-header">Welcome To Student Tracking System</div>
+                </font>
+                <br/>
+                <br/>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @if (@ViewBag.Message != null)
+                {
+                    <div style="border: 1px solid red">
+                        @ViewBag.Message
+                    </div>
+                }
+                    <table>
+                        <tr>
+                            <td>@Html.LabelFor(a => a.UserName)&nbsp;</td>
+                            <td>@Html.TextBoxFor(a => a.UserName, new { @class = "form-control form-control-sm" })</td>
+                            <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+                        </tr>
+                        <tr style="height:7px"></tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(a => a.Password)&nbsp;
+                            </td>
+                            <td>
+                                @Html.PasswordFor(a => a.Password, new { @class = "form-control form-control-sm" })
+                            </td>
+                            <td>
+                                @Html.ValidationMessageFor(a => a.Password)
+                            </td>
+                        </tr>
+                        <tr style="height:7px"></tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Login" class="btn btn-primary" />
+
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+            </fieldset>
+        }
+
+        </body>

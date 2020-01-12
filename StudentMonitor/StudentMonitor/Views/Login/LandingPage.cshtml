@@ -1,0 +1,138 @@
+﻿@model IEnumerable<StudentMonitor.STUDENT>
+@{
+    ViewBag.Title = "Home";
+}
+
+
+
+
+@{
+    ViewBag.Title = "LandingPage";
+    var grid = new WebGrid(source: Model, canPage: true, canSort: false);
+}
+
+
+<fieldset>
+    <br />
+
+    @if (@Session["Role"].Equals("1"))
+    {
+
+        <div class="jumbotron">
+            <h1 class="display-3 text-warning">Welcome Admin!</h1>
+            <br />
+
+        </div>
+        <div class="card text-white bg-success mb-3" style="width: 34em;float:left;">
+            
+            <div class="card-body">
+                
+                <p class="card-text">@Html.ActionLink("Register A Student", "RegisterStudent", "Registration", null, new { @style = "color:white" })</p>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="width: 34rem;float:right;">
+            
+            <div class="card-body">
+                
+                <p class="card-text">@Html.ActionLink("Register A Teacher", "RegisterTeacher", "Registerteacher", null, new { @style = "color:white" })</p>
+            </div>
+        </div>
+        @*@Html.Label("Welcome Admin") <br />
+            @Html.ActionLink("Register A Student", "RegisterStudent", "Registration");<br />
+            @Html.ActionLink("Register A Teacher", "RegisterTeacher", "Registerteacher");<br />
+            @Html.ActionLink("Approve leaves", "ApproveLeaves", "Leave");<br />*@
+
+
+    }
+    else if (@Session["Role"].Equals("2"))
+    {
+
+        <div class="jumbotron">
+            <h1 class="display-3 text-warning">Welcome Teacher!</h1>
+            <br />
+
+        </div>
+        <h4 class="text-info">Student Details</h4>
+        if (Model.Count() > 0)
+        {
+            @grid.GetHtml(
+             htmlAttributes: new { id = "t01", @class = "table" },
+             fillEmptyRows: false,
+             mode: WebGridPagerModes.All,
+             firstText: "<< First",
+             previousText: "< Prev",
+             nextText: "Next >",
+             lastText: "Last >>",
+             rowStyle: "table-active",
+             alternatingRowStyle: "table-active",
+
+             columns: new[] {
+                grid.Column("SID", "Id"),
+                grid.Column("NAME", "NAME"),
+                grid.Column("STD", "CLASS"),
+                grid.Column("AGE", "AGE"),
+                grid.Column("ADDRESS", "ADDRESS")
+
+
+             }
+             )
+        }
+
+        <br />
+        <div class="card text-white bg-success mb-3" style="width: 49%;float:left">
+            <div class="card-body">
+                <p class="card-text">@Html.ActionLink("View Timetable", "Timetablemain", "Timetablemain", null, new { @style = "color:white" })</p>
+            </div>
+        </div>
+        <div class="card text-white bg-danger mb-3" style="width: 49%;float:right;">
+            <div class="card-body">
+                <p class="card-text"> @Html.ActionLink("Apply Leave", "Leave", "Login", new { PersonId = Convert.ToString(Session["teacherID"]), PersonName = Convert.ToString(Session["teacherName"]) }, new { @style = "color:white" })</p>
+            </div>
+        </div>
+       
+
+    }
+    else if (@Session["Role"].Equals("3"))
+    {
+        <div class="jumbotron">
+            <h1 class="display-3 text-warning">Welcome Parent!</h1>
+            <br />
+
+        </div>
+        <h4 class="text-info">Student Details</h4>
+        if (Model.Count() > 0)
+        {
+            @grid.GetHtml(
+             htmlAttributes: new { id = "t01" ,@class="table"},
+             fillEmptyRows: false,
+             mode: WebGridPagerModes.All,
+             firstText: "<< First",
+             previousText: "< Prev",
+             nextText: "Next >",
+             lastText: "Last >>",
+             rowStyle:"table-active",
+             alternatingRowStyle: "table-active",
+
+             columns: new[] {
+                grid.Column("SID", "Id"),
+                grid.Column("NAME", "NAME"),
+                grid.Column("STD", "CLASS"),
+                grid.Column("AGE", "AGE"),
+                grid.Column("ADDRESS", "ADDRESS"),
+                grid.Column("SID","Apply Leave",format: @<text><a class="text-warning" href="@Url.Action("Leave","Login",new{PersonId=item.SID,PersonName=item.NAME })">Apply Leave</a></text>)
+
+
+                                                                                                                                                                                                                                                                                                      })
+        }
+        <br />
+        <div class="card text-white bg-warning mb-3" style="width: 100%;float:right;">
+            <div class="card-body">
+                <p class="card-text">@Html.ActionLink("View Timetable", "Timetablemain", "Timetablemain", null, new { @style = "color:white" })</p>
+            </div>
+        </div>
+
+
+    }
+
+</fieldset>
+

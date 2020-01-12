@@ -1,0 +1,43 @@
+﻿@model StudentMonitor.TimeTable_1
+
+@{
+    ViewBag.Title = "TimeTable1";
+    Layout = "";
+}
+
+
+
+<div>
+    <table id="t01" class="table">
+        <tr class="table-active">
+            <th>Standard</th>
+            <th>Days</th>
+            <th>Period 1</th>
+            <th>Period 2</th>
+            <th>Period 3</th>
+            <th>Period 4</th>
+            <th>Period 5</th>
+            <th>Period 6</th>
+            <th>Period 7</th>
+
+        </tr>
+        @foreach (var item in ViewBag.timetable)
+        {
+            <tr class="table-active">
+                <td>@item.Standard</td>
+                <td>@item.Days</td>
+                <td>@item.Period_1</td>
+                <td>@item.Period_2</td>
+                <td>@item.Period_3</td>
+                <td>@item.Period_4</td>
+                <td>@item.Period_5</td>
+                <td>@item.Period_6</td>
+                <td>@item.Period_7</td>
+                
+            </tr>
+
+        }
+    </table>
+</div>
+
+
